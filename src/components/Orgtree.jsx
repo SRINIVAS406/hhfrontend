@@ -123,7 +123,7 @@ const OrganizationTree = () => {
 
         if (token) {
         axios
-            .get('http://localhost:3001/getTreeUsers', {
+            .get('https://hhbackend-ilz3.onrender.com/getTreeUsers', {
                 headers: {
                   Authorization: `${token}`
                 }

@@ -7,7 +7,7 @@ const UserList = () => {
 
   useEffect(() => {
     // Fetch the list of users from your API
-    axios.get('http://127.0.0.1:3001/users')
+    axios.get('https://hhbackend-ilz3.onrender.com/users')
       .then(response => {
         setUsers(response.data);
       })

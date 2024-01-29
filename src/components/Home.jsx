@@ -20,7 +20,7 @@ const Home = () => {
     const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
 
     if (token) {
-      axios.get('http://localhost:3001/authonticate', {
+      axios.get('https://hhbackend-ilz3.onrender.com/authonticate', {
         headers: {
           Authorization: `${token}`
         }
@@ -50,7 +50,7 @@ const Home = () => {
   };
 
   const logoutsession = () => {
-    axios.post('http://localhost:3001/logout')
+    axios.post('https://hhbackend-ilz3.onrender.com//logout')
       .then(response => {
         console.log(response.data.message);
         localStorage.removeItem('token');

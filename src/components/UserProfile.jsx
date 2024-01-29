@@ -21,7 +21,7 @@ const UserProfile = () => {
         // Fetch the list of users and set it to the users state
         const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
         axios
-            .get('http://localhost:3001/authonticate',{headers: {
+            .get('https://hhbackend-ilz3.onrender.com/authonticate',{headers: {
                 Authorization: `${token}`
               }})
             .then((response) => {
@@ -42,7 +42,7 @@ const UserProfile = () => {
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('http://localhost:3001/users')
+            .get('https://hhbackend-ilz3.onrender.com/users')
             .then((response) => {
                 setUsers(response.data);
             })
@@ -70,7 +70,7 @@ const UserProfile = () => {
 
             // Update the user record instead of registering a new one
             axios
-                .put(`http://localhost:3001/updateUser/${userId}`, { name, email, password, parentId, job, companyname, about, skill })
+                .put(`https://hhbackend-ilz3.onrender.com/updateUser/${userId}`, { name, email, password, parentId, job, companyname, about, skill })
                 .then((result) => {
                     console.log(result);
                     alert('Profile updated successfully!');

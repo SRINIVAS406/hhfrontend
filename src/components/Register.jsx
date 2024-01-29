@@ -19,7 +19,7 @@ const Register = () => {
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('http://localhost:3001/users')
+            .get('https://hhbackend-ilz3.onrender.com//users')
             .then((response) => {
                 setUsers(response.data);
             })
@@ -32,7 +32,7 @@ const Register = () => {
         // Validate the form before submitting
         if (validateForm()) {
             axios
-                .post('http://localhost:3001/register', { name, email, password, parentId, job, companyname, about, skill })
+                .post('https://hhbackend-ilz3.onrender.com/register', { name, email, password, parentId, job, companyname, about, skill })
                 .then((result) => {
                     console.log(result);
                     if (result.data === 'Already registered') {
