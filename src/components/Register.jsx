@@ -21,10 +21,9 @@ const Register = () => {
     const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
-        alert('hi')
         // Fetch the list of users and set it to the users state
         axios
-            .get('https://hhbackend.vercel.app/users', { withCredentials: true })
+            .get('https://hhbackend.vercel.app/users')
             .then((response) => {
                 setUsers(response.data);
             })
@@ -39,7 +38,6 @@ const Register = () => {
     };
 
     const handleSubmit = (event) => {
-        alert('hi');
         event.preventDefault();
 
         // Validate the form before submitting
