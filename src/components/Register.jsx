@@ -12,7 +12,7 @@ const Register = () => {
     const [job, setJob] = useState('');
     const [companyname, setCompany] = useState('');
     const [showPassword, setShowPassword] = useState(false); 
-    const [selectedUser, setSelectedUser] = useState(null);
+    const [selectedUser, setSelectedUser] = useState({"value":''});
     const [formValid, setFormValid] = useState(true);
     const [skill, setSkill] = useState('');
     const navigate = useNavigate();
