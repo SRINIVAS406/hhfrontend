@@ -23,7 +23,7 @@ const Register = () => {
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('https://hhbackend.vercel.app/users')
+            .get('https://hhbackend.vercel.app/users', { withCredentials: true })
             .then((response) => {
                 setUsers(response.data);
             })
