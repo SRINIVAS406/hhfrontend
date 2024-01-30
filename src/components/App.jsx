@@ -9,7 +9,6 @@ function App() {
 
   return (
     <div >
-      <h1>inside App file.. </h1>
       <BrowserRouter >
         <Routes>
           <Route path="/" element ={<Login/>} />
