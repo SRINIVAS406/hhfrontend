@@ -3,6 +3,7 @@ import Login from './Login';
 import Register from './Register';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import UserProfile from './UserProfile';
+import Sample from './Sample';
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
       <h1>inside App file.. </h1>
       <BrowserRouter >
         <Routes>
-          <Route path="/" element ={<Register/>} />
+          <Route path="/" element ={<Sample/>} />
           <Route path="/register" element ={<Register/>} />
           <Route path="/login" element ={<Login/>} />
           <Route path="/home" element ={<Home/>} />
