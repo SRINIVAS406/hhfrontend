@@ -23,4 +23,9 @@
   .ReactModal__Content--before-close {
     opacity: 0;
   }
+
+  .rd3t-node, .rd3t-leaf-node {
+    fill: red !important;
+    stroke-width:0px !important;
+  }
   

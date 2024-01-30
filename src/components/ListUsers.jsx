@@ -7,7 +7,7 @@ const UserList = () => {
 
   useEffect(() => {
     // Fetch the list of users from your API
-    axios.get('https://hhbackend-ilz3.onrender.com/users')
+    axios.get('https://hhbackend.vercel.app/users')
       .then(response => {
         setUsers(response.data);
       })

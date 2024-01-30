@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -11,28 +12,39 @@ const Register = () => {
     const [job, setJob] = useState('');
     const [companyname, setCompany] = useState('');
     const [showPassword, setShowPassword] = useState(false); 
+    const [selectedUser, setSelectedUser] = useState(null);
     const [formValid, setFormValid] = useState(true);
     const [skill, setSkill] = useState('');
     const navigate = useNavigate();
     const [about, setAbout] = useState('');
     const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('https://hhbackend-ilz3.onrender.com//users')
+            .get('https://hhbackend.vercel.app/users')
             .then((response) => {
                 setUsers(response.data);
             })
             .catch((error) => console.error(error));
     }, []);
 
+    const handleSearch = (query) => {
+        const filtered = users.filter((user) =>
+            user.name.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredUsers(filtered);
+    };
+
     const handleSubmit = (event) => {
+        alert('hi');
         event.preventDefault();
 
         // Validate the form before submitting
         if (validateForm()) {
-            axios
-                .post('https://hhbackend-ilz3.onrender.com/register', { name, email, password, parentId, job, companyname, about, skill })
+            axios   
+                .post('https://hhbackend.vercel.app/register', { name, email, password, parentId: selectedUser ? selectedUser.value : '', job, companyname, about, skill })
                 .then((result) => {
                     console.log(result);
                     if (result.data === 'Already registered') {
@@ -52,13 +64,18 @@ const Register = () => {
     const validateForm = () => {
         // Add your validation logic here
         // For example, you can check if fields are not empty, valid email format, etc.
-        const isValid = name && email && password && parentId && job && companyname && skill;
+        const isValid = name && email && password && selectedUser && job && companyname && skill;
         return isValid;
     };
 
     const isFieldEmpty = (fieldValue) => {
         return fieldValue.trim() === '';
     };
+
+    const userOptions = users.map((userdetails) => ({
+        value: userdetails._id,
+        label: userdetails.name,
+    }));
 
 
     return (
@@ -72,20 +89,18 @@ const Register = () => {
                         </div>
                     )}
                     <form onSubmit={handleSubmit}>
-                    <div className={`mb-3 text-start ${isFieldEmpty(parentId) ? 'text-danger' : ''}`}>
-                            <label htmlFor="exampleInputParent" className="form-label">
+                    <div className={`mb-3 text-start ${isFieldEmpty(selectedUser.value) ? 'text-danger' : ''}`}>
+                    <label htmlFor="exampleInputParent" className="form-label">
                                 <strong>Reference</strong>
                             </label>
-                            <select
-                                className="form-control"
-                                id="exampleInputParent"
-                                onChange={(event) => setParentId(event.target.value)}
+                            <Select
+                                options={userOptions}
+                                value={selectedUser}
+                                onChange={(selectedOption) => setSelectedUser(selectedOption)}
+                                placeholder="Search or select reference..."
+                                isSearchable
                                 required
-                            >   <option value=''>--None--</option>
-                                {users.map(userdetails => (
-                                    <option key={userdetails._id} value={userdetails._id}>{userdetails.name}</option>
-                                ))}
-                            </select>
+                            />
                         </div>
                         <div className={`mb-3 text-start ${isFieldEmpty(name) ? 'text-danger' : ''}`}>
                             <label htmlFor="exampleInputName" className="form-label">

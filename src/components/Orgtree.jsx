@@ -17,44 +17,7 @@ const OrganizationTree = () => {
           {
             name: 'Employee 1.1',
             children: [
-                {
-                  name: 'Employee 1.3'
-                },
-                {
-                  name: 'Employee 1.6',
-                  children: [
-                    {
-                      name: 'Employee 1.11'
-                    },
-                    {
-                      name: 'Employee 1.21',
-                      children: [
-                        {
-                          name: 'Employee 1.112'
-                        },
-                        {
-                          name: 'Employee 1.212',
-                          children: [
-                            {
-                              name: 'Employee 1.1133'
-                            },
-                            {
-                              name: 'Employee 1.2122',
-                              children: [
-                                {
-                                  name: 'Employee 1.1561'
-                                },
-                                {
-                                  name: 'Employee 1.2661'
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
+                
               ]
           },
           {
@@ -68,44 +31,7 @@ const OrganizationTree = () => {
           {
             name: 'Employee 2.1',
             children: [
-                {
-                  name: 'Employee 1.5'
-                },
-                {
-                  name: 'Employee 1.4',
-                  children: [
-                    {
-                      name: 'Employee 1.18'
-                    },
-                    {
-                      name: 'Employee 1.29',
-                      children: [
-                        {
-                          name: 'Employee 1.132'
-                        },
-                        {
-                          name: 'Employee 1.232',
-                          children: [
-                            {
-                              name: 'Employee 1.122'
-                            },
-                            {
-                              name: 'Employee 1.221',
-                              children: [
-                                {
-                                  name: 'Employee 1.1881'
-                                },
-                                {
-                                  name: 'Employee 1.2881'
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
+                
               ]
           },
           {
@@ -123,14 +49,14 @@ const OrganizationTree = () => {
 
         if (token) {
         axios
-            .get('https://hhbackend-ilz3.onrender.com/getTreeUsers', {
+            .get('https://hhbackend.vercel.app/getTreeUsers', {
                 headers: {
                   Authorization: `${token}`
                 }
               })
             .then((response) => {
                 setTreeData(response.data);
-                console.log("Srinivas: ",treeData);
+                console.log("Srinivas--: ",treeData);
             })
             .catch((error) => console.error(error));
         }
@@ -142,12 +68,9 @@ const OrganizationTree = () => {
   const [zoom, setZoom] = useState(1);
 
   const onNodeClick = useCallback((nodeData) => {
-    console.log('Node Clicked:', nodeData);
     setLoading(true);
-    console.log("NodeData---"+nodeData);
-    // Simulate an asynchronous operation
     setSelectedNode(nodeData);
-    
+
   }, []);
 
   const onZoom = useCallback(({ translate, scale }) => {
@@ -159,21 +82,81 @@ const OrganizationTree = () => {
     setSelectedNode(null);
   };
 
+  // Custom node rendering function
+  const renderCustomNode = ({ nodeDatum, toggleNode }) => {
+    // console.log('hi-',nodeDatum);
+    if (!nodeDatum) {
+      return null; // or handle accordingly
+    }
+
+    const handleNodeClick = () => {
+      onNodeClick(nodeDatum);
+    };
+
+    let name = nodeDatum.name && nodeDatum.name.length>15 ? nodeDatum.name.slice(0,15)+'...':nodeDatum.name;
+    let job = nodeDatum.job && nodeDatum.job.length>15 ? nodeDatum.job.slice(0,15)+'...':nodeDatum.job;
+    // Use the default coordinates provided by the library
+    const x = nodeDatum.x ?? 0;
+  const y = nodeDatum.y ?? 0;
+    return <>
+    <g>
+    {/* Background rectangle */}
+    <rect
+      x={x-75}
+      y={y}
+      width="150"
+      height="60"
+      fill="#f0f0f0"
+      rx="10"
+      // onClick={handleNodeClick}
+      style={{ cursor: 'pointer' }}
+    />
+    {/* Text content */}
+    <text x={x} y={y + 20} fill="#333"  textAnchor="middle"  style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+>
+    <tspan x={x} fontWeight='bold'title={`Name: ${nodeDatum.name}}`}>{name}</tspan>
+        <tspan x={x} dy="1.2em" fontSize="12" title={`Job: ${nodeDatum.job}`}>{job}</tspan>
+    </text>
+    <rect
+        x={x - 60}
+        y={y + 50} 
+        width="120"
+        height="20"
+        fill="#ccc"
+        rx="5"
+        onClick={handleNodeClick}
+        style={{ cursor: 'pointer' }}
+      />
+      <text
+        x={x}
+        y={y + 65} 
+        fill="#333"
+        textAnchor="middle"
+        style={{ cursor: 'pointer' }}
+        onClick={handleNodeClick}
+      >
+        Show Details
+      </text>
+
+    {/* Clip path for profile picture */}
+    <defs>
+  <clipPath id={`profileClip-${nodeDatum.id}`}>
+    <circle cx={x} cy={y - 15} r="20" />
+  </clipPath>
+</defs>
+  </g>
+  </>};
+
   // Helper function to add ids to the tree data
   const addIdsToTree = (node, idPrefix = '') => {
     const id = idPrefix + node.name.toLowerCase().replace(/\s+/g, '-');
     node.id = id;
 
-    // if (node.children) {
-    //   node.children.forEach((child, index) => {
-    //     addIdsToTree(child, `${id}-${index + 1}`);
-    //   });
-    // }
     if (node.children) {
-        node.children.forEach((child, index) => {
-          addIdsToTree(child, `${id}-${index + 1}`);
-        });
-      }
+      node.children.forEach((child, index) => {
+        addIdsToTree(child, `${id}-${index + 1}`);
+      });
+    }
   };
 
   // Call the helper function when setting the initial tree data
@@ -196,10 +179,12 @@ const OrganizationTree = () => {
         onNodeClick={onNodeClick}
         onZoom={onZoom}
         separation={{ siblings: 2, nonSiblings: 2 }}
-        nodeSize={{ x: 140, y: 70 }}
+        nodeSize={{ x: 140, y: 100 }}
         pathFunc="diagonal"
-        transitionDuration={10000}
+        transitionDuration={1000}
+        renderCustomNodeElement={renderCustomNode}
       />
+
         <div id="profileCard">
         <Modal
         isOpen={!!selectedNode}
@@ -222,23 +207,22 @@ const OrganizationTree = () => {
             borderRadius: '5px',
             maxWidth: '400px',
             width: '100%',
-            height:'100%'
+            height:'70%'
           },
         }}
       >
         <h2>User Details</h2>
         {selectedNode && (
           <>
-            <p><b>Name:</b> {selectedNode.data.name}</p>
-            <p><b>Email:</b> {selectedNode.data.email}</p>
-            <p><b>Parent ID:</b> {selectedNode.data.parentId}</p>
-            <p><b>Job:</b> {selectedNode.data.job}</p>
-            <p><b>Company Name:</b> {selectedNode.data.companyname}</p>
-            <p><b>About:</b> {selectedNode.data.about}</p>
-            <p><b>Skill:</b> {selectedNode.data.skill}</p>
+            <p><b>Name:</b> {selectedNode.name}</p>
+            <p><b>Email:</b> {selectedNode.email}</p>
+            <p><b>Job:</b> {selectedNode.job}</p>
+            <p><b>Company Name:</b> {selectedNode.companyname}</p>
+            <p><b>About:</b> {selectedNode.about}</p>
+            <p><b>Skill:</b> {selectedNode.skill}</p>
           </>
         )}
-        <button onClick={handleClose}>Close</button>
+        <button onClick={handleClose} className="btn btn-primary">Close</button>
       </Modal>
         </div>
       

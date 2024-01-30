@@ -21,7 +21,7 @@ const UserProfile = () => {
         // Fetch the list of users and set it to the users state
         const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
         axios
-            .get('https://hhbackend-ilz3.onrender.com/authonticate',{headers: {
+            .get('https://hhbackend.vercel.app/authonticate',{headers: {
                 Authorization: `${token}`
               }})
             .then((response) => {
@@ -42,7 +42,7 @@ const UserProfile = () => {
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('https://hhbackend-ilz3.onrender.com/users')
+            .get('https://hhbackend.vercel.app/users')
             .then((response) => {
                 setUsers(response.data);
             })
@@ -70,7 +70,7 @@ const UserProfile = () => {
 
             // Update the user record instead of registering a new one
             axios
-                .put(`https://hhbackend-ilz3.onrender.com/updateUser/${userId}`, { name, email, password, parentId, job, companyname, about, skill })
+                .put(`https://hhbackend.vercel.app/updateUser/${userId}`, { name, email, password, parentId, job, companyname, about, skill })
                 .then((result) => {
                     console.log(result);
                     alert('Profile updated successfully!');
@@ -88,7 +88,7 @@ const UserProfile = () => {
         <div>
             <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundImage: "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))" }}>
                 <div className="bg-white p-3 rounded" style={{ width: '40%', margin:'50px' }}>
-                <h2 className="mb-3 text-primary text-center">Register</h2>
+                <h2 className="mb-3 text-primary text-center">Your Profile</h2>
                     {!formValid && (
                         <div className="alert alert-danger" role="alert">
                             Please fill in all required fields.

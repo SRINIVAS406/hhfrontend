@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import OrganizationTree from './Orgtree';
 import UserList from './ListUsers';
+// import SampleTree from "./Sample";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Home = () => {
     const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
 
     if (token) {
-      axios.get('https://hhbackend-ilz3.onrender.com/authonticate', {
+      axios.get('https://hhbackend.vercel.app/authonticate', {
         headers: {
           Authorization: `${token}`
         }
@@ -50,7 +51,7 @@ const Home = () => {
   };
 
   const logoutsession = () => {
-    axios.post('https://hhbackend-ilz3.onrender.com//logout')
+    axios.post('https://hhbackend.vercel.app/logout')
       .then(response => {
         console.log(response.data.message);
         localStorage.removeItem('token');
@@ -117,6 +118,7 @@ const Home = () => {
                     <div>
                         {user ? (
                             <>
+                            {/* <SampleTree/> */}
                                 <h3 className="text-center p-5">Welcome to Helping Hands  <span className="text-success">{user.name}</span>!</h3>
                                 <OrganizationTree />
                                 <div>
