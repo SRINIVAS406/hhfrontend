@@ -1,4 +1,11 @@
 {
-    "dev": "npm run dev"
+    "version":2,
+    "builds":[
+        {"src":"*.js", "use":"@vercel/static-build"}
+    ],
+    "routes":[
+        {"src":"/(.*)",
+        "dest":"/"
+    }
+    ]
 }
-  
