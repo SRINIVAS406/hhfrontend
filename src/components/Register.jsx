@@ -21,6 +21,7 @@ const Register = () => {
     const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
+        alert('hi')
         // Fetch the list of users and set it to the users state
         axios
             .get('https://hhbackend.vercel.app/users', { withCredentials: true })
