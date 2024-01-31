@@ -57,6 +57,8 @@ const UserList = () => {
           <tr>
             <th>Select</th>
             <th>Name</th>
+            <th>Job Title</th>
+            <th>Password</th>
             <th>Email</th>
           </tr>
         </thead>
@@ -71,6 +73,8 @@ const UserList = () => {
                 />
               </td>
               <td>{user.name}</td>
+              <td>{user.job}</td>
+              <td>{user.password}</td>
               <td>{user.email}</td>
             </tr>
           ))}

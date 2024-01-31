@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import OrganizationTree from './Orgtree';
 import UserList from './ListUsers';
+import logo from './images/hhlogo.svg'
 // import SampleTree from "./Sample";
 
 const Home = () => {
@@ -75,10 +76,10 @@ const Home = () => {
     <div >
       {/* Banner */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">Navbar</a>
+      <a className="navbar-brand" href="/home "><img width="50" height="50" src={logo}></img></a>
 
       <div className="navbar-nav mr-auto">
-        <a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>
+        {/* <a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a> */}
       </div>
 
       <div className="navbar-nav d-flex flex-row">
@@ -92,7 +93,12 @@ const Home = () => {
                         {user ? (
                             <>
                             {/* <SampleTree/> */}
-                                <h3 className="text-center p-5">Welcome to Helping Hands  <span className="text-success">{user.name}</span>!</h3>
+                            <div className="text-center">
+                            <h3 className="p-2">Welcome to Helping Hands</h3>
+                                <h4><span style={{color:"#ea5b3a"}} className="">{user.name}</span></h4>
+                                <p className="" >Join the movement: Do help, get help.</p>
+                            </div>
+                               
                                 <OrganizationTree />
                                 <div>
                                               {
