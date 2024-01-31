@@ -5,14 +5,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const hostUrl = import.meta.env.VITE_HOST_URL;
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-        axios.post('https://hhbackend.vercel.app/login', {email, password})
+        axios.post(hostUrl+'/login', {email, password})
         .then(result => {
             console.log(result);
             if(result.status === 200){
@@ -27,7 +27,7 @@ const Login = () => {
         })
         .catch(err => console.log(err));
     }
-
+  
     return (
         <div className="container-fluid vh-100">
         <div className="row justify-content-center align-items-center text-center vh-100" style={{ backgroundImage: "linear-gradient(rgb(0, 213, 255), rgb(0, 149, 255), rgba(93, 0, 255, 0.557))", height:"100vh" }}>

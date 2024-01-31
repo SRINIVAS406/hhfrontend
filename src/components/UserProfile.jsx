@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
+    const hostUrl = import.meta.env.VITE_HOST_URL;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,7 +22,7 @@ const UserProfile = () => {
         // Fetch the list of users and set it to the users state
         const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
         axios
-            .get('https://hhbackend.vercel.app/authonticate',{headers: {
+            .get(hostUrl+'/authonticate',{headers: {
                 Authorization: `${token}`
               }})
             .then((response) => {
@@ -42,7 +43,7 @@ const UserProfile = () => {
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('https://hhbackend.vercel.app/users')
+            .get(hostUrl+'/users')
             .then((response) => {
                 setUsers(response.data);
             })

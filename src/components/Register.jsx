@@ -23,7 +23,7 @@ const Register = () => {
     useEffect(() => {
         // Fetch the list of users and set it to the users state
         axios
-            .get('https://hhbackend.vercel.app/users')
+            .get(hostUrl+'/users')
             .then((response) => {
                 setUsers(response.data);
             })
@@ -43,7 +43,7 @@ const Register = () => {
         // Validate the form before submitting
         if (validateForm()) {
             axios   
-                .post('https://hhbackend.vercel.app/register', { name, email, password, parentId: selectedUser ? selectedUser.value : '', job, companyname, about, skill })
+                .post(hostUrl+'/register', { name, email, password, parentId: selectedUser ? selectedUser.value : '', job, companyname, about, skill })
                 .then((result) => {
                     console.log(result);
                     if (result.data === 'Already registered') {

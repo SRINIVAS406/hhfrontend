@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const UserList = () => {
+  const hostUrl = import.meta.env.VITE_HOST_URL;
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   useEffect(() => {
     // Fetch the list of users from your API
-    axios.get('https://hhbackend.vercel.app/users')
+    axios.get(hostUrl+'/users')
       .then(response => {
         setUsers(response.data);
       })
@@ -31,7 +32,7 @@ const UserList = () => {
     
     if (confirmDelete) {
       // Send a DELETE request to your API to delete the selected users
-      axios.delete(`http://127.0.0.1:3001/deleteUsers`, { data: { userIds: selectedUsers } })
+      axios.delete(hostUrl+`/deleteUsers`, { data: { userIds: selectedUsers } })
         .then(response => {
           console.log(response.data.message);
           // Remove the deleted users from the local state

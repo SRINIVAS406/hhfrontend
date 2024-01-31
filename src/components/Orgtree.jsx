@@ -8,38 +8,10 @@ import '../css/Orgtree.css'
 
 
 const OrganizationTree = () => {
+  const hostUrl = import.meta.env.VITE_HOST_URL;
   const [treeData, setTreeData] = useState({
     name: 'CEO',
-    children: [
-      {
-        name: 'Manager 1',
-        children: [
-          {
-            name: 'Employee 1.1',
-            children: [
-                
-              ]
-          },
-          {
-            name: 'Employee 1.2'
-          }
-        ]
-      },
-      {
-        name: 'Manager 2',
-        children: [
-          {
-            name: 'Employee 2.1',
-            children: [
-                
-              ]
-          },
-          {
-            name: 'Employee 2.2'
-          }
-        ]
-      }
-    ]
+    children: []
   });
 
   const [users, setUsers] = useState([]);
@@ -49,7 +21,7 @@ const OrganizationTree = () => {
 
         if (token) {
         axios
-            .get('https://hhbackend.vercel.app/getTreeUsers', {
+            .get(hostUrl+'/getTreeUsers', {
                 headers: {
                   Authorization: `${token}`
                 }
