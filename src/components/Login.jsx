@@ -15,7 +15,7 @@ const Login = () => {
         axios.post( 'https://hhbackend.vercel.app/login', {email, password})
         .then(result => {
             console.log(result);
-            if(result.statusText === "OK"){
+            if(result.status === 200){
                 console.log("Login Success");
                 //alert('Login successful!')
                 localStorage.setItem('token', result.data.token);
