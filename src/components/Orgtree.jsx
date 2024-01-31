@@ -99,8 +99,7 @@ const OrganizationTree = () => {
     const x = nodeDatum.x ?? 0;
   const y = nodeDatum.y ?? 0;
 
-
-
+  
     return <>
     <g>
     {/* Background rectangle */}
@@ -173,8 +172,8 @@ const OrganizationTree = () => {
   }, []);
 
   const handleResetZoom = () => {
-    setTranslate({ x: window.innerWidth / 2, y: 50 });
     setZoom(1);
+    setTranslate({ x: window.innerWidth / 2, y: 50 });
   };
 
   return (
@@ -183,7 +182,7 @@ const OrganizationTree = () => {
         <button className="btn btn-secondary" onClick={handleResetZoom}>
           Reset Zoom
         </button>
-      </div>  
+      </div>
       <Tree
         data={treeData}
         orientation="vertical"
