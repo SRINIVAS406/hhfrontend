@@ -170,7 +170,7 @@ const OrganizationTree = () => {
   }, []);
 
   return (
-    <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'30px', borderRadius:'10px' }}>
+    <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
       <Tree
         data={treeData}
         orientation="vertical"

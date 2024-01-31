@@ -12,15 +12,13 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post( 'https://hhbackend.vercel.app/login', {email, password})
+        axios.post('https://hhbackend.vercel.app/login', {email, password})
         .then(result => {
             console.log(result);
             if(result.status === 200){
                 console.log("Login Success");
-                //alert('Login successful!')
                 localStorage.setItem('token', result.data.token);
                 sessionStorage.setItem('user', JSON.stringify({ email }));
-
                 navigate('/home');
             }
             else{
@@ -30,12 +28,11 @@ const Login = () => {
         .catch(err => console.log(err));
     }
 
-
     return (
-        <div>
-            <div className="d-flex justify-content-center align-items-center text-center vh-100" style= {{backgroundImage : "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))", height:'100vh'}}>
-                <div className="bg-white p-3 rounded" style={{width : '40%', margin:'50px'}}>
-                    <h2 className='mb-3 text-primary'>Login</h2>
+        <div className="container-fluid vh-100">
+        <div className="row justify-content-center align-items-center text-center vh-100" style={{ backgroundImage: "linear-gradient(rgb(0, 213, 255), rgb(0, 149, 255), rgba(93, 0, 255, 0.557))", height:"100vh" }}>
+          <div className="col-sm-12 col-md-8 col-lg-6 bg-white p-3 rounded" style={{height:"auto", marginTop:"20px", marginBottom:"180px"}}>
+            <h2 className="mb-3 text-primary">Login</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3 text-start">
                             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -48,7 +45,7 @@ const Login = () => {
                                 id="exampleInputEmail1" 
                                 onChange={(event) => setEmail(event.target.value)}
                                 required
-                            /> 
+                            />
                         </div>
                         <div className="mb-3 text-start">
                             <label htmlFor="exampleInputPassword1" className="form-label">
@@ -65,7 +62,6 @@ const Login = () => {
                         </div>
                         <button type="submit" className="btn btn-primary">Login</button>
                     </form>
-                    {/* TO add ' appostopee */}
                     <p className='container my-2'>Don&apos;t have an account?</p>
                     <Link to='/register' className="btn btn-secondary">Register</Link>
                 </div>
@@ -74,4 +70,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;
