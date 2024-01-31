@@ -98,6 +98,12 @@ const OrganizationTree = () => {
     // Use the default coordinates provided by the library
     const x = nodeDatum.x ?? 0;
   const y = nodeDatum.y ?? 0;
+
+  const handleResetZoom = () => {
+    setTranslate({ x: window.innerWidth / 2, y: 50 });
+    setZoom(1);
+  };
+
     return <>
     <g>
     {/* Background rectangle */}
@@ -171,6 +177,12 @@ const OrganizationTree = () => {
 
   return (
     <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
+      <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
+      <div className="d-flex justify-content-end mb-2">
+        <button className="btn btn-secondary" onClick={handleResetZoom}>
+          Reset Zoom
+        </button>
+      </div>
       <Tree
         data={treeData}
         orientation="vertical"
