@@ -8,6 +8,8 @@ import '../css/Orgtree.css'
 
 
 const OrganizationTree = () => {
+  const [translate, setTranslate] = useState({ x: window.innerWidth / 2, y: 50 });
+  const [zoom, setZoom] = useState(1);
   const hostUrl = import.meta.env.VITE_HOST_URL;
   const [treeData, setTreeData] = useState({
     name: 'CEO',
@@ -36,8 +38,7 @@ const OrganizationTree = () => {
 
   const [selectedNode, setSelectedNode] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [translate, setTranslate] = useState({ x: window.innerWidth / 2, y: 50 });
-  const [zoom, setZoom] = useState(1);
+  
 
   const onNodeClick = useCallback((nodeData) => {
     setLoading(true);
@@ -143,19 +144,12 @@ const OrganizationTree = () => {
     Modal.setAppElement('#profileCard'); // Replace with the actual app element selector
   }, []);
 
-  const handleResetZoom = () => {
-    setZoom(1);
-    setTranslate({ x: window.innerWidth / 2, y: 50 });
-  };
 
   return (
     <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
-      <div className="d-flex justify-content-end mb-2">
-        <button className="btn btn-secondary" onClick={handleResetZoom}>
-          Reset Zoom
-        </button>
-      </div>
+      
       <Tree
+      
         data={treeData}
         orientation="vertical"
         translate={translate}
