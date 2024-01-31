@@ -177,12 +177,11 @@ const OrganizationTree = () => {
 
   return (
     <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
-      <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
       <div className="d-flex justify-content-end mb-2">
         <button className="btn btn-secondary" onClick={handleResetZoom}>
           Reset Zoom
         </button>
-      </div>
+      </div>  
       <Tree
         data={treeData}
         orientation="vertical"
