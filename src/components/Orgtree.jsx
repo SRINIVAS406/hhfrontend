@@ -99,10 +99,7 @@ const OrganizationTree = () => {
     const x = nodeDatum.x ?? 0;
   const y = nodeDatum.y ?? 0;
 
-  const handleResetZoom = () => {
-    setTranslate({ x: window.innerWidth / 2, y: 50 });
-    setZoom(1);
-  };
+
 
     return <>
     <g>
@@ -174,6 +171,11 @@ const OrganizationTree = () => {
     // Set the app element for accessibility
     Modal.setAppElement('#profileCard'); // Replace with the actual app element selector
   }, []);
+
+  const handleResetZoom = () => {
+    setTranslate({ x: window.innerWidth / 2, y: 50 });
+    setZoom(1);
+  };
 
   return (
     <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
