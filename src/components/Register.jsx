@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
 const Register = () => {
+    const hostUrl = import.meta.env.VITE_HOST_URL;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -79,7 +80,7 @@ const Register = () => {
 
     return (
         <div className="container-fluid vh-100">
-        <div className="row justify-content-center align-items-center text-center vh-100" style={{ backgroundImage: "linear-gradient(rgb(0, 213, 255), rgb(0, 149, 255), rgba(93, 0, 255, 0.557))",height:"100vh"  }}>
+        <div className="row justify-content-center align-items-center text-left vh-100" style={{ backgroundImage: "linear-gradient(rgb(0, 213, 255), rgb(0, 149, 255), rgba(93, 0, 255, 0.557))",height:"100%"  }}>
           <div className="col-sm-12 col-md-8 col-lg-6 bg-white p-3 rounded" style={{height:"auto", marginTop:"20px", marginBottom:"180px"}}>
             <h2 className="mb-3 text-primary text-center">Register</h2>
                     {!formValid && (
