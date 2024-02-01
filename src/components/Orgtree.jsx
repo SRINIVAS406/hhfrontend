@@ -8,9 +8,12 @@ import '../css/Orgtree.css'
 
 
 const OrganizationTree = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [highlightedNodes, setHighlightedNodes] = useState([]);
   const [translate, setTranslate] = useState({ x: window.innerWidth / 2, y: 50 });
   const [zoom, setZoom] = useState(1);
   const hostUrl = import.meta.env.VITE_HOST_URL;
+  const [searchResCount, setSearchResCount] = useState(0);
   const [treeData, setTreeData] = useState({
     name: 'CEO',
     children: []
@@ -55,6 +58,14 @@ const OrganizationTree = () => {
     setSelectedNode(null);
   };
 
+    // Helper function to highlight text within a string
+const highlightText = (text, query) => {
+  const regex = new RegExp(`(${query})`, 'gi');
+  return text.split(regex).map((part, index) =>
+    regex.test(part) ? <tspan key={index} fill="red">{part}</tspan> : part
+  );
+};
+
   // Custom node rendering function
   const renderCustomNode = ({ nodeDatum, toggleNode }) => {
     // console.log('hi-',nodeDatum);
@@ -72,20 +83,20 @@ const OrganizationTree = () => {
     const x = nodeDatum.x ?? 0;
   const y = nodeDatum.y ?? 0;
 
-  
+  const isHighlighted = highlightedNodes.includes(nodeDatum.email);
+  const highlightColor = isHighlighted ? 'orange' : '#f0f0f0';
     return <>
     <g>
     {/* Background rectangle */}
     <rect
-      x={x-75}
-      y={y}
-      width="150"
-      height="60"
-      fill="#f0f0f0"
-      rx="10"
-      // onClick={handleNodeClick}
-      style={{ cursor: 'pointer' }}
-    />
+          x={x - 75}
+          y={y}
+          width="150"
+          height="60"
+          fill={isHighlighted ? 'orange' : '#f0f0f0'}
+          rx="10"
+          style={{ cursor: 'pointer' }}
+        />
     {/* Text content */}
     <text x={x} y={y + 20} fill="#333"  textAnchor="middle"  style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
 >
@@ -122,6 +133,8 @@ const OrganizationTree = () => {
   </g>
   </>};
 
+
+
   // Helper function to add ids to the tree data
   const addIdsToTree = (node, idPrefix = '') => {
     const id = idPrefix + node.name.toLowerCase().replace(/\s+/g, '-');
@@ -144,10 +157,52 @@ const OrganizationTree = () => {
     Modal.setAppElement('#profileCard'); // Replace with the actual app element selector
   }, []);
 
+  //---------------Search methods----------------
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setHighlightedNodes([]);
+  if(query.length>=3){
+// Perform search logic and update highlightedNodes state accordingly
+const matchingNodes = query ? findMatchingNodes(treeData, query) : [];
+setHighlightedNodes(matchingNodes);
+setSearchResCount(matchingNodes.length);
+  }else{
+    setSearchResCount(0);
+  }
+  };
+
+  
+  const findMatchingNodes = (node, query) => {
+    const matchingNodes = [];
+
+  const isMatch = (node.name + ' ' + node.job).toLowerCase().includes(query.toLowerCase());
+
+  if (isMatch) {
+    matchingNodes.push(node.email);
+  }
+
+  if (node.children) {
+    node.children.forEach((child) => {
+      matchingNodes.push(...findMatchingNodes(child, query));
+    });
+  }
+
+  return matchingNodes;
+  };
+  
+
 
   return (
     <div style={{ width: '95vw', height: '100vh', padding: '10px', background: '#d4d5d1', margin:'auto', borderRadius:'10px' }}>
-      
+      {/* Search box */}
+    <input
+      type="text"
+      className='form-control'
+      placeholder="Enter min 3 charecters to Search..."
+      value={searchQuery}
+      onChange={(e) => handleSearch(e.target.value)}
+      style={{ marginBottom: '10px', width:"300px" }}
+    /><p >Results count:- <b style={{color:'red'}}>{searchResCount}</b></p>
       <Tree
       
         data={treeData}
