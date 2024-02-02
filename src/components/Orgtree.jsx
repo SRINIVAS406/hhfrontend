@@ -77,8 +77,8 @@ const highlightText = (text, query) => {
       onNodeClick(nodeDatum);
     };
 
-    let name = nodeDatum.name && nodeDatum.name.length>15 ? nodeDatum.name.slice(0,15)+'...':nodeDatum.name;
-    let job = nodeDatum.job && nodeDatum.job.length>15 ? nodeDatum.job.slice(0,15)+'...':nodeDatum.job;
+    let name = nodeDatum.name && nodeDatum.name.length>22 ? nodeDatum.name.slice(0,22)+'...':nodeDatum.name;
+    let job = nodeDatum.job && nodeDatum.job.length>22 ? nodeDatum.job.slice(0,22)+'...':nodeDatum.job;
     // Use the default coordinates provided by the library
     const x = nodeDatum.x ?? 0;
   const y = nodeDatum.y ?? 0;
@@ -89,9 +89,9 @@ const highlightText = (text, query) => {
     <g>
     {/* Background rectangle */}
     <rect
-          x={x - 75}
+          x={x - 95}
           y={y}
-          width="150"
+          width="200"
           height="60"
           fill={isHighlighted ? 'orange' : '#f0f0f0'}
           rx="10"
