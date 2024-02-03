@@ -34,7 +34,7 @@ const Home = () => {
 
               <OrganizationTree />
               <div>
-                {user.email == "sri@gmail.com" ? (
+                {user.parentId == "root" ? (
                   <>
                     <UserList />
                   </>

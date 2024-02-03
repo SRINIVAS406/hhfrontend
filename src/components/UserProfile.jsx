@@ -130,10 +130,10 @@ const UserProfile = () => {
                 </label>
                 <select
                   className="form-control"
-                  id="InputParent"
+                  id="InputParentd"
                   onChange={(event) => setParentId(event.target.value)}
-                  required
                   value={parentId}
+                  disabled="true"
                 >
                   {" "}
                   <option value="">--None--</option>

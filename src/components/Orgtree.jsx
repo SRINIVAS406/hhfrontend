@@ -212,7 +212,7 @@ setSearchResCount(matchingNodes.length);
         onNodeClick={onNodeClick}
         onZoom={onZoom}
         separation={{ siblings: 2, nonSiblings: 2 }}
-        nodeSize={{ x: 140, y: 100 }}
+        nodeSize={{ x: 190, y: 200 }}
         pathFunc="diagonal"
         transitionDuration={1000}
         renderCustomNodeElement={renderCustomNode}
